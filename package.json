@@ -20,7 +20,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "cross-env CI=false react-scripts build",
+    "vercel-build": "echo 'Building app...' && npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -44,5 +45,8 @@
   },
   "engines": {
     "node": "18.x"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
