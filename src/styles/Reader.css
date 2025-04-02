@@ -1,0 +1,490 @@
+/* ADHD阅读助手 - 现代深色主题 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&display=swap');
+@import url('https://opendyslexic.org/css/opendyslexic.css');
+
+:root {
+  --primary-color: #6c5ce7;
+  --primary-light: #a29bfe;
+  --primary-dark: #4834d4;
+  --accent-color: #ff7675;
+  --accent-dark: #e84393;
+  --text-color: #f5f5f5;
+  --text-secondary: #b2bec3;
+  --background-dark: #121212;
+  --background-content: #1e1e1e;
+  --sidebar-width: 280px;
+  --header-height: 70px;
+  --adhd-font: 'OpenDyslexic', 'Noto Serif SC', serif;
+}
+
+/* 全局样式重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 确保html和body占满整个视口 */
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-dark);
+  color: var(--text-color);
+  overflow: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* App 容器样式 */
+.App {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background-dark);
+  overflow: hidden;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: linear-gradient(145deg, var(--primary-color), var(--primary-dark));
+  padding: 32px 24px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  color: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 0 32px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 32px;
+}
+
+.logo h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  background: linear-gradient(to right, #fff, rgba(255,255,255,0.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.upload-btn {
+  width: 100%;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.upload-btn:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+/* 主内容区域样式 */
+.main-content {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  background-color: var(--background-dark);
+  height: 100vh;
+  width: calc(100vw - var(--sidebar-width));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 顶部导航栏样式 */
+.header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  background-color: var(--background-content);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+  font-size: 20px;
+  color: var(--text-color);
+  margin: 0;
+  font-weight: 600;
+}
+
+/* 控制按钮区域 */
+.controls {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.mode-selector select,
+.pos-selector select {
+  padding: 10px 16px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  font-size: 15px;
+  color: white;
+  background-color: #000000;
+  cursor: pointer;
+  outline: none;
+  min-width: 160px;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+  padding-right: 32px;
+}
+
+.mode-selector select:hover,
+.pos-selector select:hover {
+  background-color: #111111;
+  border-color: rgba(255,255,255,0.3);
+}
+
+/* 下拉选项样式 */
+.mode-selector select option,
+.pos-selector select option {
+  background-color: #000000;
+  color: white;
+  padding: 10px;
+}
+
+/* 为Firefox设置下拉菜单背景 */
+.mode-selector select:-moz-focusring,
+.pos-selector select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 white;
+}
+
+/* 为IE和Edge设置下拉菜单 */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .mode-selector select,
+  .pos-selector select {
+    padding-right: 0;
+    background-image: none;
+  }
+}
+
+/* 内容区域样式 */
+.page-content {
+  flex: 1;
+  padding: 40px;
+  margin: 0 auto;
+  width: 100%;
+  height: calc(100vh - var(--header-height));
+  position: relative;
+  overflow-y: auto;
+  background-color: var(--background-dark);
+}
+
+/* PDF内容样式 */
+.pdf-content {
+  background-color: var(--background-content);
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  padding: 48px;
+  min-height: calc(100% - 80px);
+  font-family: var(--adhd-font);
+  font-size: 18px;
+  line-height: 2;
+  color: var(--text-color);
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.pdf-paragraph {
+  margin-bottom: 1.8em;
+  text-indent: 2em;
+  text-align: justify;
+  text-justify: inter-ideograph;
+  position: relative;
+  line-height: 1.5 !important;
+}
+
+/* 高亮样式 */
+.highlight-word {
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+
+.highlight-word.red {
+  color: #ff7675;
+  background-color: rgba(255, 118, 117, 0.1);
+}
+
+.highlight-word.blue {
+  color: #74b9ff;
+  background-color: rgba(116, 185, 255, 0.1);
+}
+
+.highlight-word.black {
+  color: #dfe6e9;
+  background-color: rgba(223, 230, 233, 0.1);
+}
+
+/* 黑色背景模式 */
+.dark-background {
+  background-color: #000 !important;
+}
+
+.dark-background .sidebar {
+  background: linear-gradient(145deg, #4834d4, #341f9e) !important;
+}
+
+.dark-background .page-content,
+.dark-background .main-content,
+.dark-background .pdf-content {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+/* 鼠标跟随样式 */
+.mouse-follow-content {
+  position: relative;
+}
+
+.follow-word {
+  transition: color 0.2s, font-weight 0.2s;
+}
+
+.line-highlight {
+  position: absolute;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.1);
+  left: 0;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 阅读控制区域 */
+.reading-controls {
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.reading-controls h3 {
+  margin-bottom: 15px;
+  color: white;
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.mode-select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  outline: none;
+  font-size: 15px;
+}
+
+.mode-select option {
+  background-color: #4834d4;
+  color: white;
+}
+
+/* 空状态样式 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-dark);
+  width: 100%;
+  height: 100%;
+  color: var(--text-secondary);
+  padding: 40px;
+}
+
+.empty-state:before {
+  content: "📚";
+  font-size: 64px;
+  margin-bottom: 24px;
+  opacity: 0.7;
+}
+
+.empty-state p {
+  font-size: 18px;
+  opacity: 0.7;
+  text-align: center;
+  max-width: 400px;
+}
+
+/* 导航按钮样式 */
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 0;
+  background-color: var(--background-dark);
+}
+
+.page-btn {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-info {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* 鼠标跟随高亮样式 */
+.mouse-highlight {
+  background-color: rgba(255, 140, 0, 0.15);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
+}
+
+/* 行高亮样式 */
+.line-highlight {
+  position: absolute;
+  pointer-events: none;
+  background-color: rgba(255, 165, 0, 0.3);
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(255, 165, 0, 0.5);
+  z-index: 5;
+  transition: all 0.1s ease;
+}
+
+.text-line {
+  display: block;
+  padding: 2px 0;
+}
+
+/* 鼠标跟随内容容器 */
+.mouse-follow-content {
+  cursor: pointer;
+}
+
+/* 鼠标跟随模式下的段落样式 */
+.mouse-follow-content .pdf-paragraph {
+  padding: 8px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+  line-height: 2.2;
+}
+
+.mouse-follow-content .pdf-paragraph:hover {
+  background-color: rgba(255, 140, 0, 0.05);
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: var(--background-dark);
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--background-dark);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 5px;
+  border: 2px solid var(--background-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* 自动阅读器样式 */
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+}
+
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.speed-control button {
+  padding: 2px 8px;
+  background: #4CAF50;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.speed-control button:hover {
+  background: #45a049;
+}
+
+.speed-control span {
+  min-width: 60px;
+  text-align: center;
+  font-size: 14px;
+}
+
+#auto-reader-cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: #00ff00;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px #00ff00;
+  animation: pulse 1s infinite;
+  z-index: 9999;
+  transition: all 0.1s ease;
+} 

@@ -1,0 +1,29 @@
+/* 全局背景色设置 */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  background-color: #ff8c00 !important;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+/* 全局滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #ff8c00;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ff8c00;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #333333;
+  border-radius: 4px;
+  border: 2px solid #ff8c00;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #444444;
+} 
