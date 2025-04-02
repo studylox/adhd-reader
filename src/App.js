@@ -2748,8 +2748,8 @@ const App = () => {
       
       // 停止通过全局API
       if (window.rhythmReader && typeof window.rhythmReader.stop === 'function') {
-        window.rhythmReader.stop();
-      }
+      window.rhythmReader.stop();
+    }
       
       // 停止手动版本
       if (window.manualStartRhythmReading) {
@@ -3899,7 +3899,7 @@ const App = () => {
       right: 10px;
       top: 10px;
       background: #4CAF50;
-      color: white;
+        color: white;
       border: none;
       border-radius: 4px;
       padding: 8px 12px;
@@ -4153,16 +4153,16 @@ const App = () => {
             {message}
           </div>
         )}
-        
+          
         <div className="toolbar">
           {fileName && <h3 className="filename">{fileName}</h3>}
-        </div>
+          </div>
           
         <div className="page-content" ref={readerContainerRef}>
             {totalPages === 0 ? (
               <div className="welcome-message">
                 一起来开心地阅读吧！📚😊
-              </div>
+        </div>
             ) : (
               <div dangerouslySetInnerHTML={{ __html: content }} />
             )}
